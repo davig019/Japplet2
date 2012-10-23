@@ -4,20 +4,28 @@ import java.awt.*;
 
 public class MainC extends Applet implements Runnable {
 
-   int width, height;
-   boolean drawOnce = true;
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
+int width, height;
+   
    Thread t = null;
    
    Text txt;
    Text txt2;
-
+   Image buffer;
    
    public void init() {
       
-      width = getSize().width;
-      height = getSize().height;
+      width = 600;
+      height = 600;
+      setSize(width, height);
       setBackground( Color.black );
       
+      buffer = createImage(width, height);
       
       txt = new Text("Hello", 100, 100);
       txt2 = new Text("GoodBye", 100, 150);
@@ -71,7 +79,7 @@ public class MainC extends Applet implements Runnable {
             update();
             repaint();
             
-            t.sleep( 10 );  
+            Thread.sleep( 10 );  
          }
       }
       catch (InterruptedException e) { }
@@ -97,16 +105,19 @@ public class MainC extends Applet implements Runnable {
    
    
    public void paint( Graphics g ) {
-	   g.setColor( Color.green );
-	   if (drawOnce){
-		   g.drawRect(0, 0, width - 3, height - 3);
-	   }
+	   Graphics bg = buffer.getGraphics();
+	   bg.clearRect(0, 0, width, height);
+	   bg.setColor( Color.green );
+	   bg.drawRect(0, 0, width - 3, height - 3);
 	   
+	   
+	  
       
       
-	   txt.draw(g);
-	   txt2.draw(g);
+	   txt.draw(bg);
+	   txt2.draw(bg);
       
-      
+	   g.drawImage(buffer, 0, 0, null);
+	   g.dispose();
    }
 }
