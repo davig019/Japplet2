@@ -1,9 +1,10 @@
-Simple text that bounces across the screen;
+DESCRIPTION:
+Simple text that bounces across the screen and changes colour.
 
-
+GUIDE:
+Click in window to toggle scrolling speed.
 
 
 CREDITS:
-
-George Davies - editing text so bounce off walls
-Sam Holder - framework for code
+Sam Holder - basic framework/hint for code.
+George Davies - all code minus above.
