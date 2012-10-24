@@ -1,8 +1,9 @@
 package Japplet2;
 import java.applet.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class MainC extends Applet implements Runnable {
+public class MainC extends Applet implements Runnable,MouseListener {
 
    /**
 	 * 
@@ -17,23 +18,26 @@ int width, height;
    Text txt;
    Text txt2;
    Image buffer;
+   int refresh = 100;
+   boolean state;
+   
    
    public void init() {
       
       width = 600;
-      height = 600;
+      height = 300;
       setSize(width, height);
       setBackground( Color.black );
-      
+      state = false;
       buffer = createImage(width, height);
-      
+      addMouseListener( this );
       txt = new Text("Hello", 100, 100);
       txt2 = new Text("GoodBye", 100, 150);
    }
 
    
    public void destroy() {
-      System.out.println("destroy()");
+      ;
    }
 
    
@@ -59,7 +63,7 @@ int width, height;
 
  
    public void stop() {
-      System.out.println("stop(): begin");
+      ;
      
    }
 
@@ -70,16 +74,10 @@ int width, height;
          while (true) {
             
 
-            
-            
-          
-               
-            
-            
             update();
             repaint();
             
-            Thread.sleep( 10 );  
+            Thread.sleep( refresh );  
          }
       }
       catch (InterruptedException e) { }
@@ -90,7 +88,9 @@ int width, height;
    
    
    
-   
+   public void update(Graphics g){
+	   paint(g);
+   }
    
    
    
@@ -120,4 +120,48 @@ int width, height;
 	   g.drawImage(buffer, 0, 0, null);
 	   g.dispose();
    }
+
+
+public void toggleSpeed(){
+	if (state){
+		refresh = 10;
+	}else if(!state){
+		refresh = 50;
+	}
+}
+	
+
+
+public void mouseClicked(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+public void mousePressed(MouseEvent e) {
+	state = !state;
+	toggleSpeed();
+	
+}
+
+
+
+public void mouseReleased(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+
+public void mouseEntered(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+public void mouseExited(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+}
 }
